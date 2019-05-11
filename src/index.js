@@ -31,6 +31,8 @@ discordClient.on('ready', () => {
 // On message event.
 discordClient.on('message', (message) => {
     if (!Messages.messageIsFromClient(message, discordClient)) {
+        console.log(message);
+        message.reply(message);
     }
 });
 
