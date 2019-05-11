@@ -1,0 +1,28 @@
+{
+  "name": "sheriff-bot",
+  "version": "1.0.0",
+  "description": "A simple bot for my discord server management.",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cub4no/sheriff-bot/issues",
+    "email": "gianszabernardo@gmail.com"
+  },
+  "homepage": "https://github.com/cub4no/sheriff-bot#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cub4no/sheriff-bot.git"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "author": "cub4no",
+  "dependencies": {
+    "@sentry/node": "5.2.0",
+    "discord.js": "^11.4.2",
+    "dotenv": "^8.0.0",
+    "nodemon": "^1.19.0"
+  }
+}
