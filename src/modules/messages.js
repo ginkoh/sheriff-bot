@@ -10,7 +10,7 @@ const deleteAllMessages = async (channel, limit = 100) => {
     const messages = await channel.fetchMessages({ limit });
 
     // Delete every message.
-    messages.forEach((message) => message.delete())
+    messages.forEach((message) => message.delete());
 };
 
 /**
