@@ -1,39 +1,45 @@
 // Require the discord.js lib.
 const Discord = require('discord.js');
-
 // Create a new discord client.
 const discordClient = new Discord.Client();
 
-// Setup Sentry to notify errors.
-const Sentry = require("@sentry/node");
-Sentry.init({ dsn: "https://fab5553e98174c03823b8c6cd33c0ec3@sentry.io/1457444" })
-
 // Config the enviroment variables.
-require('dotenv').config();
+const env = require('dotenv').config();
 
-// Hold the entire env process variables.
-const env = process.env;
 // Hold the bearer discord bot token.
-const token = env.TOKEN;
+const token = process.env.TOKEN;
 
-// Bot files.
-const Messages = require('./messages');
+// Login module.
+const login = require('./login');
 
-// Checks if the bot started.
-discordClient.on('ready', () => {
-    console.log(`Logged in as ${discordClient.user.tag}`);
-});
+// Sentry module.
+const setupSentry = require('./sentry');
+
+// Events modules.
+const registerEvents = require('./events/index');
 
 /**
- * Bot events.
+ * @function startBot
+ * 
+ * @param {} client 
+ * @param {*} token 
  */
+const startBot = (discordClient, token) => new Promise((resolve) => {
+    // Setup Sentry to notify errors.
+    setupSentry();
 
-// On message event.
-discordClient.on('message', (message) => {
-    if (!Messages.messageIsFromClient(message, discordClient)) {
-        message.reply(message);
-    }
+    // Login with the bot credentials.
+    login(discordClient, token);
+
+    // Just resolves the promise.
+    resolve();
 });
 
-// Start the bot.
-discordClient.login(token);
+// Call the function to start the bot.
+startBot(discordClient, token).then(() => {
+    // Register all the bot events, like 'ready' event, 'message' event and so many others.
+    registerEvents(discordClient, token);
+}).catch((reason) => {
+    console.log('Cannot login due to ', reason);
+});
+
