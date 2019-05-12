@@ -1,4 +1,15 @@
 /**
+ * Reply to a message in the same channel as the sender.
+ * 
+ * @function replyMessage
+ * 
+ * @param {*} message 
+ * @param {*} options 
+ */
+const replyMessage = (message, options = undefined) =>
+    message.reply(message, options);
+
+/**
  * Fetch, iterates over, and deletes all the messages from a given channel.
  * 
  * @function deleteAllMessages
@@ -65,6 +76,10 @@ const messageIsFromClient = (message, client) =>
 // Exports all the "messages" related functions.
 module.exports = {
     /**
+     * @exports deleteAllMessages
+     */
+    deleteAllMessages,
+    /**
      * @exports deleteMessageFromSender
      */
     deleteMessageFromSender,
@@ -73,7 +88,7 @@ module.exports = {
      */
     messageIsFromClient,
     /**
-     * @exports deleteAllMessages
+     * @exports replyMessage
      */
-    deleteAllMessages
+    replyMessage,
 };
