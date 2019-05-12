@@ -7,10 +7,14 @@
  */
 const deleteAllMessages = async (channel, limit = 100) => {
     try {
-        // Fetch all the messages.
-        const messages = await channel.fetchMessages({ limit });
-        // Delete every message.
-        messages.forEach((message) => message.delete());
+        if (limit <= 100) {
+            // Fetch all the messages.
+            const messages = await channel.fetchMessages({ limit });
+            // Delete every message.
+            messages.forEach((message) => message.delete());
+        } else {
+            channel.sendMessage('Cannot delete more than 100 messages.');
+        }
     } catch (err) {
         channel.sendMessage('Cannot fetch users due to an error.');
     }
