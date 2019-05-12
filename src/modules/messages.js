@@ -1,4 +1,15 @@
 /**
+ * Reply to a message in the same channel as the sender.
+ * 
+ * @function replyMessage
+ * 
+ * @param {*} message 
+ * @param {*} options 
+ */
+const replyMessage = (message, options = undefined) =>
+    message.reply(message, options);
+
+/**
  * Fetch, iterates over, and deletes all the messages from a given channel.
  * 
  * @function deleteAllMessages
@@ -6,13 +17,27 @@
  * @param {*} channel
  */
 const deleteAllMessages = async (channel, limit = 100) => {
-    try {
-        // Fetch all the messages.
-        const messages = await channel.fetchMessages({ limit });
-        // Delete every message.
-        messages.forEach((message) => message.delete());
-    } catch (err) {
-        channel.sendMessage('Cannot fetch users due to an error.');
+    if (limit <= 100) {
+        try {
+            // Fetch all the messages.
+            const messages = await channel.fetchMessages({ limit });
+
+            // Delete every message.
+            messages.deleteAll();
+
+            // Return the ammount of messages deleted.
+            return messages.size;
+        } catch (err) {
+            // Send the error message to the channel.
+            channel.send('Cannot fetch messages due to an error.');
+            // Throw a new error.
+            throw new Error(err);
+        }
+    } else {
+        // Set the custom error message.
+        const errorMessage = "Cannot delete more than 100 messages.";
+        // Send the error message to the channel.
+        channel.send(errorMessage);
     }
 };
 
@@ -23,11 +48,16 @@ const deleteAllMessages = async (channel, limit = 100) => {
  * 
  * @param {*} message - The message from the sender.
  */
-const deleteMessageFromSender = (message) => {
+const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
     return message.delete().then((deletedMessage) => {
-        console.log(`Deleted message from ${deletedMessage.author.username}`);
-    }).catch((e) => {
-        console.log('Error: Cannot delete message due to reasons.', e)
+        if (shouldSendConfirmMessage)
+            // Send a message to confirm that the previous message was deleted.
+            deletedMessage.channel.send(`Deleted message from ${deletedMessage.author.username}`);
+    }).catch((err) => {
+        // Send the error message to the channel.
+        message.channel.send('Error: Cannot delete message due to error');
+        // Throw a new error.
+        throw new Error(err);
     });
 };
 
@@ -37,16 +67,18 @@ const deleteMessageFromSender = (message) => {
  * 
  * @function messageIsFromClient
  * 
- * @param {*} author - The author of the message.
- * @param {*} client - The discord bot client instance.
+ * @param {*} message - The message itself.
  * 
  * @returns {Boolean}
  */
-const messageIsFromClient = (message, client) =>
-    message.author.username === client.user.username;
+const messageIsFromClient = (message) => message.author.bot;
 
 // Exports all the "messages" related functions.
 module.exports = {
+    /**
+     * @exports deleteAllMessages
+     */
+    deleteAllMessages,
     /**
      * @exports deleteMessageFromSender
      */
@@ -56,7 +88,7 @@ module.exports = {
      */
     messageIsFromClient,
     /**
-     * @exports deleteAllMessages
+     * @exports replyMessage
      */
-    deleteAllMessages
+    replyMessage,
 };
