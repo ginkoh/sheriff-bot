@@ -15,7 +15,6 @@ const deleteAllMessages = async (channel, limit = 100) => {
         } catch (err) {
             // Send the error message to the channel.
             channel.sendMessage('Cannot fetch messages due to an error.');
-
             // Throw a new error.
             throw new Error(err);
         }
@@ -25,7 +24,6 @@ const deleteAllMessages = async (channel, limit = 100) => {
 
         // Send the error message to the channel.
         channel.sendMessage(errorMessage);
-
         // Throw a new error.
         throw new Error(errorMessage);
     }
