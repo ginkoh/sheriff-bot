@@ -21,8 +21,12 @@ const deleteAllMessages = async (channel, limit = 100) => {
         try {
             // Fetch all the messages.
             const messages = await channel.fetchMessages({ limit });
+
             // Delete every message.
-            messages.forEach((message) => message.delete());
+            messages.deleteAll();
+
+            // Return the ammount of messages deleted.
+            return messages.size;
         } catch (err) {
             // Send the error message to the channel.
             channel.send('Cannot fetch messages due to an error.');
