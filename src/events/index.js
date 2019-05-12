@@ -1,16 +1,34 @@
-// Setup all the events.
-module.exports = (discordClient) => [
+// The array of events to be executed.
+const eventsArr = [
     /**
-     * @requires module: ready
-     */
+    * @requires module: ready
+    */
     require('./ready'),
     /**
      * @requires module: messages
      */
     require('./messages'),
-].forEach((eventObj) => 
-    Object.keys(eventObj).forEach((value) => {
-        const eventFunction = eventObj[value];
-        eventFunction(discordClient);
-    })
-);
+];
+
+/**
+ * Iterate over all the events and execute them, passing
+ * the discordClient as an argument.
+ * 
+ * @function executeEvents
+ * 
+ * @param {Object[]} eventsArr 
+ */
+const executeEvents = (eventsArr, discordClient) =>
+    eventsArr.forEach((eventObj) =>
+        Object.keys(eventObj).forEach((value) =>
+            eventObj[value](discordClient)
+        )
+    );
+
+/**
+ * @exports registerEvents
+ * 
+ * @param {*} discordClient - The discord bot client instance.
+ */
+module.exports = (discordClient) =>
+    executeEvents(eventsArr, discordClient);

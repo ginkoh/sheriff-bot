@@ -27,8 +27,6 @@ const deleteMessageFromSender = (message) => {
 const messageIsFromClient = (message, client) =>
     message.author.username === client.user.username;
 
-    
-
 // Exports all the "messages" related functions.
 module.exports = {
     /**
