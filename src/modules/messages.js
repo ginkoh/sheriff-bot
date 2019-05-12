@@ -1,4 +1,19 @@
 /**
+ * Fetch, iterates over, and deletes all the messages from a given channel.
+ * 
+ * @function deleteAllMessages
+ * 
+ * @param {*} channel
+ */
+const deleteAllMessages = async (channel, limit = 100) => {
+    // Fetch all the messages.
+    const messages = await channel.fetchMessages({ limit });
+
+    // Delete every message.
+    messages.forEach((message) => message.delete())
+};
+
+/**
  * Deletes the message from the sender of the message.
  * 
  * @function deleteMessageFromSender
@@ -36,5 +51,9 @@ module.exports = {
     /**
      * @exports messageIsFromClient
      */
-    messageIsFromClient
+    messageIsFromClient,
+    /**
+     * @exports deleteAllMessages
+     */
+    deleteAllMessages
 };
