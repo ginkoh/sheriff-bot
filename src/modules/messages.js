@@ -65,13 +65,11 @@ const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
  * 
  * @function messageIsFromClient
  * 
- * @param {*} author - The author of the message.
- * @param {*} client - The discord bot client instance.
+ * @param {*} message - The message itself.
  * 
  * @returns {Boolean}
  */
-const messageIsFromClient = (message, client) =>
-    message.author.username === client.user.username;
+const messageIsFromClient = (message) => message.author.bot;
 
 // Exports all the "messages" related functions.
 module.exports = {
