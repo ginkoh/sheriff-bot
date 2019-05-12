@@ -25,7 +25,7 @@ const deleteAllMessages = async (channel, limit = 100) => {
             messages.forEach((message) => message.delete());
         } catch (err) {
             // Send the error message to the channel.
-            channel.sendMessage('Cannot fetch messages due to an error.');
+            channel.send('Cannot fetch messages due to an error.');
             // Throw a new error.
             throw new Error(err);
         }
@@ -50,10 +50,10 @@ const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
     return message.delete().then((deletedMessage) => {
         if (shouldSendConfirmMessage)
             // Send a message to confirm that the previous message was deleted.
-            deletedMessage.channel.sendMessage(`Deleted message from ${deletedMessage.author.username}`);
+            deletedMessage.channel.send(`Deleted message from ${deletedMessage.author.username}`);
     }).catch((err) => {
         // Send the error message to the channel.
-        message.channel.sendMessage('Error: Cannot delete message due to error');
+        message.channel.send('Error: Cannot delete message due to error');
         // Throw a new error.
         throw new Error(err);
     });
