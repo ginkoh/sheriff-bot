@@ -21,7 +21,6 @@ const deleteAllMessages = async (channel, limit = 100) => {
     } else {
         // Set the custom error message.
         const errorMessage = "Cannot delete more than 100 messages.";
-
         // Send the error message to the channel.
         channel.sendMessage(errorMessage);
         // Throw a new error.
