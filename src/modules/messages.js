@@ -23,11 +23,12 @@ const deleteAllMessages = async (channel, limit = 100) => {
  * 
  * @param {*} message - The message from the sender.
  */
-const deleteMessageFromSender = (message) => {
+const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
     return message.delete().then((deletedMessage) => {
-        console.log(`Deleted message from ${deletedMessage.author.username}`);
+        if (shouldSendConfirmMessage)
+            deletedMessage.channel.sendMessage(`Deleted message from ${deletedMessage.author.username}`);
     }).catch((e) => {
-        console.log('Error: Cannot delete message due to reasons.', e)
+        message.channel.sendMessage('Error: Cannot delete message due to error');
     });
 };
 
