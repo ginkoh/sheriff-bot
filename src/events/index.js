@@ -16,7 +16,9 @@ const eventsArr = [
  * 
  * @function executeEvents
  * 
- * @param {Object[]} eventsArr 
+ * @param {Object[]} eventsArr - The array of "socket" like events.
+ * 
+ * @returns {undefined}
  */
 const executeEvents = (eventsArr, discordClient) =>
     eventsArr.forEach((eventObj) =>

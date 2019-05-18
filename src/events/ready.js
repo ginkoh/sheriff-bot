@@ -1,7 +1,7 @@
 /**
  * @function onReady
  * 
- * @param {*} discordClient 
+ * @param {*} discordClient
  */
 const onReady = (discordClient) =>
     discordClient.on('ready', () => {

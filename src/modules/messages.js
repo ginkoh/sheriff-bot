@@ -15,6 +15,8 @@ const replyMessage = (message, options = undefined) =>
  * @function deleteAllMessages
  * 
  * @param {*} channel
+ * 
+ * @returns {Number}
  */
 const deleteAllMessages = async (channel, limit = 100) => {
     if (limit <= 100) {
@@ -47,12 +49,14 @@ const deleteAllMessages = async (channel, limit = 100) => {
  * @function deleteMessageFromSender
  * 
  * @param {*} message - The message from the sender.
+ * 
+ * @returns {Promise<(Message|Array<Message>)>}
  */
 const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
     return message.delete().then((deletedMessage) => {
         if (shouldSendConfirmMessage)
             // Send a message to confirm that the previous message was deleted.
-            deletedMessage.channel.send(
+            return deletedMessage.channel.send(
                 `Deleted message from ${deletedMessage.author.username}`
             );
     }).catch((err) => {

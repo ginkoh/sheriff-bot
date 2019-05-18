@@ -5,7 +5,7 @@ const Utils = require('../utils/index');
 /**
  * @function onMessage
  * 
- * @param {*} discordClient 
+ * @param {*} discordClient
  */
 const onMessage = (discordClient) =>
     discordClient.on('message', (message) => {

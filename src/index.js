@@ -24,16 +24,17 @@ const registerEvents = require('./events/index');
  * @param {} client 
  * @param {*} token 
  */
-const startBot = (discordClient, token) => new Promise((resolve) => {
-    // Setup Sentry to notify errors.
-    setupSentry();
+const startBot = (discordClient, token) =>
+    new Promise((resolve) => {
+        // Setup Sentry to notify errors.
+        setupSentry();
 
-    // Login with the bot credentials.
-    login(discordClient, token);
+        // Login with the bot credentials.
+        login(discordClient, token);
 
-    // Just resolves the promise.
-    resolve();
-});
+        // Just resolves the promise.
+        resolve();
+    });
 
 // Call the function to start the bot.
 startBot(discordClient, token).then(() => {
