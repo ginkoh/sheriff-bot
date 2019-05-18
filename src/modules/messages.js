@@ -52,8 +52,8 @@ const deleteAllMessages = async (channel, limit = 100) => {
  * 
  * @returns {Promise<(Message|Array<Message>)>}
  */
-const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
-    return message.delete().then((deletedMessage) => {
+const deleteMessageFromSender = (message, shouldSendConfirmMessage) =>
+    message.delete().then((deletedMessage) => {
         if (shouldSendConfirmMessage)
             // Send a message to confirm that the previous message was deleted.
             return deletedMessage.channel.send(
@@ -65,7 +65,6 @@ const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
         // Throw a new error.
         throw new Error(err);
     });
-};
 
 /**
  * Checks if the message is from the client, which avoid the bot
