@@ -21,7 +21,7 @@ const registerEvents = require('./events/index');
 /**
  * @function startBot
  * 
- * @param {} client 
+ * @param {*} client 
  * @param {*} token 
  */
 const startBot = (discordClient, token) =>
