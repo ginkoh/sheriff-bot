@@ -52,7 +52,9 @@ const deleteMessageFromSender = (message, shouldSendConfirmMessage) => {
     return message.delete().then((deletedMessage) => {
         if (shouldSendConfirmMessage)
             // Send a message to confirm that the previous message was deleted.
-            deletedMessage.channel.send(`Deleted message from ${deletedMessage.author.username}`);
+            deletedMessage.channel.send(
+                `Deleted message from ${deletedMessage.author.username}`
+            );
     }).catch((err) => {
         // Send the error message to the channel.
         message.channel.send('Error: Cannot delete message due to error');
