@@ -5,14 +5,28 @@
  * @function calledSheriff
  * 
  * @param {String} messageContent - The content of the message.
+ * 
+ * @returns {Boolean}
  */
-const calledSheriff = (messageContent) =>
-    messageContent.startsWith(process.env.BOT_PREFIX);
+const calledSheriff = (messageContent) => {
+    // Create a new regex expression with the bot prefix regex. This makes sure
+    // the bot will give a response even if the user type the bot's name in a
+    // wrong way.
+    const botPrefix = new RegExp(process.env.BOT_PREFIX);
+
+    // Get the first part of the message
+    const message = messageContent.split(' ')[0];
+
+    // Test the regex returning a boolean.
+    return botPrefix.test(message);
+};
 
 /**
  * @function splitMessage
  * 
  * @param {string} messageContent - The message text content.
+ * 
+ * @returns {Object}
  */
 const splitMessage = (messageContent) => {
     // Split the message in parts.
