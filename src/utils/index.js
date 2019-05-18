@@ -25,7 +25,7 @@ const splitMessage = (messageContent) => {
     const command = message[1];
 
     // The options to the command.
-    const commandArgs = message.slice(2, message.length - 1);
+    const commandArgs = message.slice(2, message.length);
 
     return {
         command,
