@@ -37,7 +37,8 @@ const startBot = (discordClient, token) => new Promise((resolve) => {
 
 // Call the function to start the bot.
 startBot(discordClient, token).then(() => {
-    // Register all the bot events, like 'ready' event, 'message' event and so many others.
+    // Register all the bot events, like 'ready' event, 'message' event and so 
+    // many others.
     registerEvents(discordClient, token);
 }).catch((reason) => {
     console.log('Cannot login due to ', reason);
